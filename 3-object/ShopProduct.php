@@ -11,6 +11,10 @@ class ShopProduct
 
 // создаем экземляр объекта, создается объект типа ShopProduct
 $product1 = new ShopProduct();
+
+// обращение к свойству объекта
+print $product1->title;
+
 $product2 = new ShopProduct();
 
 echo '<pre>';
