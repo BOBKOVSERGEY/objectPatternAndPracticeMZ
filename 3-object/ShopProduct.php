@@ -15,6 +15,10 @@ $product1 = new ShopProduct();
 // обращение к свойству объекта
 print $product1->title;
 
+// меняем значение свойства
+$product1->title = "Собачье сердце";
+
+
 $product2 = new ShopProduct();
 
 echo '<pre>';
