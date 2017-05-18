@@ -3,39 +3,86 @@
 // создаем класс
 class ShopProduct
 {
-    public $title = "Стандартный товар";
-    public $producerMainName = "Фамилия Автора";
-    public $producerFirstName = "Имя Автора";
-    public $price = 0;
+    public $numPages;
+    public $playLength;
+    public $title;
+    public $producerMainName;
+    public $producerFirstName;
+    public $price;
 
     // определяем метод конструктора
-    public function __construct($title, $firstName, $mainName, $price)
+    public function __construct($title, $firstName, $mainName, $price, $numPages = 0, $playLength = 0)
     {
         $this->title = $title;
         $this->producerMainName = $mainName;
         $this->producerFirstName = $firstName;
         $this->price = $price;
+        $this->numPages = $numPages;
+        $this->playLength = $playLength;
     }
 
     // добавляем метод к классу
     public function getProducer()
     {
-        return $this->producerFirstName  . " " . $this->producerMainName;
+        return $this->producerFirstName . " " . $this->producerMainName;
+    }
+
+    public function getSummaryLine()
+    {
+        $base = $this->title . " " . "($this->producerMainName, ";
+        $base .= "$this->producerFirstName)";
+        return $base;
     }
 }
 
-// вызываем метод констракт
-$product1 = new ShopProduct("Собачье сердце", "Булгаков", "Михаил", 5.99);
+class CDProduct extends ShopProduct
+{
+    public $playLength;
+
+    public function __construct($title, $firstName, $mainName, $price, $playLength)
+    {
+        parent::__construct($title, $firstName, $mainName, $price, $playLength);
+        $this->playLength = $playLength;
+    }
+
+    public function getPlayLength()
+    {
+        return $this->playLength;
+    }
 
 
-// обращение к свойствам объекта
-//print "Автор: " . $product1->producerFirstName . ' ' . $product1->producerMainName;
 
-// Обращение к методу
-echo "Автор: " . $product1->getProducer();
+    public function getSummaryLine()
+    {
+        $base = parent::getSummaryLine();
+        $base .= ": Время звучания - {$this->playLength}";
+        return $base;
+    }
+}
 
+class BookProduct extends ShopProduct
+{
+    public $numPages;
+    public function __construct($title, $firstName, $mainName, $price, $numPages)
+    {
+        parent::__construct($title, $firstName, $mainName, $price, $numPages);
+        $this->numPages = $numPages;
+    }
 
-//$product2 = new ShopProduct();
+    public function getNumberOfPage()
+    {
+        return $this->numPages;
+    }
 
-echo '<pre>';
-var_dump($product1);
+    public function getSummaryLine()
+    {
+        $base = parent::getSummaryLine();
+        $base .= ": {$this->numPages} стр.";
+        return $base;
+    }
+}
+
+$product2 = new CDProduct("Пропавший без вести", "Группа", "ДДТ", 10.99, 60.33);
+echo date('H:i:s') . '<br>';
+echo "Исполнитель: {$product2->getSummaryLine()} <br>";
+echo date('H:i:s') . '<br>';
