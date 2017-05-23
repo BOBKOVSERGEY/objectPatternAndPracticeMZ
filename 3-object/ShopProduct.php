@@ -3,12 +3,14 @@
 // создаем класс
 class ShopProduct
 {
-    public $numPages;
-    public $playLength;
-    public $title;
-    public $producerMainName;
-    public $producerFirstName;
-    public $price;
+    private $numPages;
+    private $playLength;
+    private $title;
+    private $producerMainName;
+    private $producerFirstName;
+    private $price;
+    private $discount = 0;
+
 
     // определяем метод конструктора
     public function __construct($title, $firstName, $mainName, $price, $numPages = 0, $playLength = 0)
@@ -19,6 +21,16 @@ class ShopProduct
         $this->price = $price;
         $this->numPages = $numPages;
         $this->playLength = $playLength;
+    }
+
+    public function setDiscount($num)
+    {
+        $this->discount = $num;
+    }
+
+    public function getPrice()
+    {
+        return ($this->price - $this->discount);
     }
 
     // добавляем метод к классу
@@ -37,7 +49,7 @@ class ShopProduct
 
 class CDProduct extends ShopProduct
 {
-    public $playLength;
+    private $playLength;
 
     public function __construct($title, $firstName, $mainName, $price, $playLength)
     {
@@ -62,7 +74,7 @@ class CDProduct extends ShopProduct
 
 class BookProduct extends ShopProduct
 {
-    public $numPages;
+    private $numPages;
     public function __construct($title, $firstName, $mainName, $price, $numPages)
     {
         parent::__construct($title, $firstName, $mainName, $price, $numPages);
@@ -74,6 +86,7 @@ class BookProduct extends ShopProduct
         return $this->numPages;
     }
 
+
     public function getSummaryLine()
     {
         $base = parent::getSummaryLine();
@@ -83,6 +96,4 @@ class BookProduct extends ShopProduct
 }
 
 $product2 = new CDProduct("Пропавший без вести", "Группа", "ДДТ", 10.99, 60.33);
-echo date('H:i:s') . '<br>';
-echo "Исполнитель: {$product2->getSummaryLine()} <br>";
-echo date('H:i:s') . '<br>';
+$product2->setDiscount(1);
