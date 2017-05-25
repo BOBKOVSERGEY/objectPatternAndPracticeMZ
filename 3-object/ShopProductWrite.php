@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/ShopProduct.php';
 
-class ShopProductWrite
+abstract class ShopProductWrite
 {
     public $products = [];
 
@@ -11,21 +11,9 @@ class ShopProductWrite
         $this->products[] = $shopProduct;
     }
 
-    public function write()
-    {
-        $str = '';
-        foreach ($this->products as $shopProduct) {
-            $str .= "{$shopProduct->title}: ";
-            $str .= $shopProduct->getProducer;
-            $str .= $shopProduct->getPrce;
-        }
-        print $str;
-    }
+    abstract public function write();
+
 }
 
-$write = new ShopProductWrite();
 
-var_dump($write);
-
-echo $write->write();
 
