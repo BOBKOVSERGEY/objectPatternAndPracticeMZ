@@ -10,9 +10,17 @@ trait PriceUtilites
   }
 }
 
+trait IdentityTrait
+{
+  public function generateId()
+  {
+    return uniqid();
+  }
+}
+
 class ShopProduct
 {
-  use PriceUtilites;
+  use PriceUtilites, IdentityTrait;
 }
 
 abstract class Service
@@ -27,3 +35,4 @@ class UtilityService extends Service
 
 $p = new ShopProduct();
 print $p->calculateTax(100);
+echo $p->generateId();
