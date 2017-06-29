@@ -16,6 +16,11 @@ class Person
     $this->id = $id;
   }
 
+  public function __clone()
+  {
+    $this->id = 0;
+  }
+
   public function __destruct()
   {
     if (!empty($this->id)) {
